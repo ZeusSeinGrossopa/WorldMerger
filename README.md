@@ -9,7 +9,7 @@ WorldMerger is a useful tool to merge minecraft multiplayer worlds to a singlepl
 # How to Run 
 
 ```
-java  -jar WorldMerger.jar
+java -jar WorldMerger.jar
 pause
 ```
 ---
