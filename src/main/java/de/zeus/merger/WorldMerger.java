@@ -117,7 +117,7 @@ public class WorldMerger {
                 }
 
                 int input = JOptionPane.showOptionDialog(null, "Done!", "ServerMerger", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-                if (input == 0) {
+                if (input == JOptionPane.OK_OPTION) {
                     System.exit(0);
                 }
             } else {
