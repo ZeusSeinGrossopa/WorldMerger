@@ -129,7 +129,10 @@ public class WorldMerger {
     }
 
     public void error(String message) {
-        JOptionPane.showMessageDialog(null, message, "ServerMerger", JOptionPane.ERROR_MESSAGE);
+        int error = JOptionPane.showOptionDialog(null, message, "ServerMerger", JOptionPane.CLOSED_OPTION, JOptionPane.ERROR_MESSAGE, null, null, null);
+        if(error == JOptionPane.OK_OPTION) {
+            System.exit(0);
+        }
     }
 
     public static File getJarPath() {
