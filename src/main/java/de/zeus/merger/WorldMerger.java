@@ -45,6 +45,11 @@ public class WorldMerger {
             if(Arrays.asList(worldNames).containsAll(Arrays.stream(dropFolder.listFiles()).map(File::getName).collect(Collectors.toList()))) {
                 File finalWorld = new File(getJarPath() + "/" + worldName);
 
+                if(finalWorld.exists()) {
+                    error("A error occurred! Folder " + worldName + " already exists");
+                    return;
+                }
+
                 if(!finalWorld.mkdir()) {
                     error("A error occurred! Can not creating folder " + worldName);
                     return;
