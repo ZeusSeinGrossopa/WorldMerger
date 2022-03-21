@@ -2,13 +2,13 @@ package de.zeus.merger;
 
 import javax.swing.*;
 
-public class WorldMergerGui2 extends JFrame {
+public class WorldMergerGui extends JFrame {
     private JButton startButton;
     private JPanel WorldMerger;
 //    private JProgressBar progressBar;
     private JTextField worldName;
 
-    public WorldMergerGui2() {
+    public WorldMergerGui() {
         setContentPane(WorldMerger);
         setTitle("WorldMerger");
         setSize(450, 300);

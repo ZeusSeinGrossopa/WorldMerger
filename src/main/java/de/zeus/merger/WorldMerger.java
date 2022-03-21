@@ -37,7 +37,7 @@ public class WorldMerger {
         dropFolder = new File(getJarPath() + "/yourworldshere/");
         dropFolder.mkdir();
 
-        new WorldMergerGui2();
+        new WorldMergerGui();
     }
 
     public void start(String worldName) { //Multiplayer zu Singleplayer
