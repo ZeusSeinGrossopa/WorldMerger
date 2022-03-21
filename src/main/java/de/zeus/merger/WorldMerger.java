@@ -42,7 +42,7 @@ public class WorldMerger {
 
     public void start(String worldName) { //Multiplayer zu Singleplayer
         if(dropFolder.exists() && dropFolder.listFiles() != null && dropFolder.listFiles().length > 0) {
-            if(Arrays.asList(worldNames).containsAll(Arrays.stream(dropFolder.listFiles()).map(File::getName).collect(Collectors.toList()))) {
+            if(Arrays.asList(worldNames).equals(Arrays.stream(dropFolder.listFiles()).map(File::getName).collect(Collectors.toList()))) {
                 File finalWorld = new File(getJarPath() + "/" + worldName);
 
                 if(finalWorld.exists()) {
