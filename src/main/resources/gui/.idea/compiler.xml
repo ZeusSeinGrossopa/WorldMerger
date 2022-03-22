@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="WorldMerger" />
+        <module name="gui" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="WorldMerger" target="17" />
+      <module name="gui" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>

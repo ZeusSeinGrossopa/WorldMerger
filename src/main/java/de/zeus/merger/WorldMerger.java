@@ -1,19 +1,17 @@
 package de.zeus.merger;
 
-import org.apache.commons.io.FileUtils;
+import de.zeus.merger.types.ServerToSingleplayerMerger;
+import de.zeus.merger.types.SingleplayerToServerMerger;
+import javafx.application.Application;
 
 import javax.swing.*;
 import java.io.File;
-import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class WorldMerger {
 
     private final File dropFolder;
-
-    private final String[] worldNames = new String[]{"world", "world_nether", "world_the_end"};
+    private Merger currentMerger;
 
     private static WorldMerger instance;
     private static File jarFile;
@@ -37,100 +35,59 @@ public class WorldMerger {
         dropFolder = new File(getJarPath() + "/yourworldshere/");
         dropFolder.mkdir();
 
-        new WorldMergerGui();
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> System.out.println("Shutting down...")));
+
+        Application.launch(GuiNew.class, args);
     }
 
-    public void start(String worldName) { //Multiplayer zu Singleplayer
-        if(dropFolder.exists() && dropFolder.listFiles() != null && dropFolder.listFiles().length > 0) {
-            if(Arrays.asList(worldNames).equals(Arrays.stream(dropFolder.listFiles()).map(File::getName).collect(Collectors.toList()))) {
-                File finalWorld = new File(getJarPath() + "/" + worldName);
+    public void start(String worldName, String serverPath) {
+        if (dropFolder.exists() && dropFolder.listFiles() != null && dropFolder.listFiles().length > 0) {
+            if (dropFolder.listFiles().length == 1) {
+                setCurrentMerger(new SingleplayerToServerMerger());
+            } else {
+                setCurrentMerger(new ServerToSingleplayerMerger());
+            }
 
-                if(finalWorld.exists()) {
-                    error("A error occurred! Folder " + worldName + " already exists");
+            File finalWorld = new File(getJarPath() + "/" + worldName);
+            if(currentMerger instanceof ServerToSingleplayerMerger) {
+                File serverPathFile;
+
+                if(serverPath.isEmpty() || !(serverPathFile = new File(serverPath)).exists()) {
+                    error("Please enter a correct .minecraft path!", false);
                     return;
                 }
 
-                if(!finalWorld.mkdir()) {
-                    error("A error occurred! Can not creating folder " + worldName);
-                    return;
-                }
+                finalWorld = new File(serverPathFile + "/" + worldName);
+            }
 
-                File worldFile = new File(dropFolder + "/world/");
-                System.out.println(worldFile.getAbsolutePath());
-                try {
-                    FileUtils.copyDirectory(worldFile, finalWorld);
-                } catch (IOException e) {
-                    error("A error occurred! Can not copy default world to " + worldName);
-                    e.printStackTrace();
-                    return;
-                }
+            if (currentMerger != null) {
+                System.out.println("Using " + getCurrentMerger().getClass().getSimpleName() + " merging tool");
 
-                File netherFile = new File(dropFolder + "/world_nether/DIM-1/");
-                File dim1File = new File(finalWorld + "/DIM-1/");
-
-                try {
-                    if(dim1File.exists()) {
-                        FileUtils.deleteDirectory(dim1File);
+                if (currentMerger.checkValid(dropFolder)) {
+                    boolean done = currentMerger.mergeWorld(dropFolder, finalWorld, worldName);
+                    if (done) {
+                        int input = JOptionPane.showOptionDialog(null, "Done!", "ServerMerger", JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+                        if (input == JOptionPane.OK_OPTION) {
+                            System.exit(0);
+                        }
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                if(!dim1File.mkdir()) {
-                    error("A error occurred! Can not create folder " + dim1File.getName());
-                    return;
-                } else
-                    System.out.println("Created folder " + dim1File.getName());
-
-                try {
-                    FileUtils.copyDirectory(netherFile, dim1File);
-                } catch (IOException e) {
-                    error("A error occurred! Can not copy folder " + netherFile.getName() + " to " + dim1File.getName());
-                    e.printStackTrace();
-                    return;
-                }
-
-                File endFile = new File(dropFolder + "/world_the_end/DIM1/");
-                File dim2File = new File(finalWorld + "/DIM1/");
-
-                try {
-                    if(dim2File.exists()) {
-                        FileUtils.deleteDirectory(dim2File);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                if(!dim2File.mkdir()) {
-                    error("A error occurred! Can not create folder " + dim2File.getName());
-                    return;
-                }
-
-                System.out.println("Created folder " + dim2File.getName());
-
-                try {
-                    FileUtils.copyDirectory(endFile, dim2File);
-                } catch (IOException e) {
-                    error("A error occurred! Can not copy folder " + endFile.getName() + " to " + dim2File.getName());
-                    e.printStackTrace();
-                    return;
-                }
-
-                int input = JOptionPane.showOptionDialog(null, "Done!", "ServerMerger", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-                if (input == JOptionPane.OK_OPTION) {
-                    System.exit(0);
                 }
             } else {
-                error("Please use " + Arrays.toString(worldNames));
+                error("Can not recognize the worlds", false);
             }
         } else {
-            error("Please copy the worlds in the " + dropFolder.getName() + " folder");
+            error("Please copy the worlds in the " + dropFolder.getName() + " folder", false);
         }
     }
 
-    public void error(String message) {
+    public static void error(String message) {
+        error(message, true);
+    }
+
+    public static void error(String message, boolean close) {
         int error = JOptionPane.showOptionDialog(null, message, "ServerMerger", JOptionPane.CLOSED_OPTION, JOptionPane.ERROR_MESSAGE, null, null, null);
-        if(error == JOptionPane.OK_OPTION) {
+
+        if(error == JOptionPane.OK_OPTION && close) {
             System.exit(0);
         }
     }
@@ -140,7 +97,7 @@ public class WorldMerger {
             try {
                 return (jarFile = new File(WorldMerger.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile());
             } catch (URISyntaxException e) {
-                return new File("");
+                return new File(".");
             }
         }
         return jarFile;
@@ -150,11 +107,34 @@ public class WorldMerger {
         return dropFolder;
     }
 
-    public String[] getWorldNames() {
-        return worldNames;
+    public Merger getCurrentMerger() {
+        return currentMerger;
+    }
+
+    public void setCurrentMerger(Merger currentMerger) {
+        this.currentMerger = currentMerger;
     }
 
     public static WorldMerger getInstance() {
         return instance;
+    }
+
+    public static File getSavePath() {
+        return new File(getMinecraftPath() + "/saves/");
+    }
+
+    public static File getMinecraftPath() {
+        String os = System.getProperty("os.name").toLowerCase();
+        File finalFile = null;
+
+        if(os.contains("windows")) {
+            finalFile = new File(System.getenv("APPDATA") + "/.minecraft/");
+        } else if(os.contains("mac")) {
+            finalFile = new File(System.getenv("user.home") + "Library/Application Support/minecraft");
+        } else if(os.contains("linux") || os.contains("unix")) {
+            finalFile = new File(System.getenv("user.home") + '.' + "minecraft" + '/');
+        }
+
+        return finalFile;
     }
 }
