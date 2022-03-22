@@ -16,8 +16,6 @@ public class ServerToSingleplayerMerger extends Utils implements Merger {
 
     @Override
     public boolean mergeWorld(File dropFolder, File finalWorld, String worldName) {
-
-        System.out.println(finalWorld.getAbsolutePath());
         if (finalWorld.exists()) {
             error("A error occurred! Folder " + worldName + " already exists", false);
             return false;
@@ -82,7 +80,6 @@ public class ServerToSingleplayerMerger extends Utils implements Merger {
             error("A error occurred! Can not create folder " + dim2File.getName());
             return false;
         }
-
         System.out.println("Created folder " + dim2File.getName());
 
         try {
@@ -92,7 +89,6 @@ public class ServerToSingleplayerMerger extends Utils implements Merger {
             e.printStackTrace();
             return false;
         }
-
         return true;
     }
 

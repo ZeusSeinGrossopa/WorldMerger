@@ -41,42 +41,46 @@ public class WorldMerger extends Utils {
     }
 
     public void start(String worldName, String serverPath) {
-        if (dropFolder.exists() && dropFolder.listFiles() != null && dropFolder.listFiles().length > 0) {
-            if (dropFolder.listFiles().length == 1) {
-                setCurrentMerger(new SingleplayerToServerMerger());
-            } else {
-                setCurrentMerger(new ServerToSingleplayerMerger());
-            }
-
-            File finalWorld = new File(getJarPath() + "/" + worldName);
-            if(currentMerger instanceof ServerToSingleplayerMerger) {
-                File serverPathFile;
-
-                if(isNull(serverPath) || !(serverPathFile = new File(serverPath)).exists()) {
-                    error("Please enter a correct .minecraft path!", false);
-                    return;
+        if(isNull(serverPath)) {
+            if (dropFolder.exists() && dropFolder.listFiles() != null && dropFolder.listFiles().length > 0) {
+                if (dropFolder.listFiles().length == 1) {
+                    setCurrentMerger(new SingleplayerToServerMerger());
+                } else {
+                    setCurrentMerger(new ServerToSingleplayerMerger());
                 }
 
-                finalWorld = new File(serverPathFile + "/" + worldName);
-            }
+                File finalWorld = new File(getJarPath() + "/" + worldName);
+                if(currentMerger instanceof ServerToSingleplayerMerger) {
+                    File serverPathFile;
 
-            if (currentMerger != null) {
-                System.out.println("Using " + getCurrentMerger().getClass().getSimpleName() + " merging tool");
+                    if(isNull(serverPath) || !(serverPathFile = new File(serverPath)).exists()) {
+                        error("Please enter a correct .minecraft path!", false);
+                        return;
+                    }
 
-                if (currentMerger.checkValid(dropFolder)) {
-                    boolean done = currentMerger.mergeWorld(dropFolder, finalWorld, worldName);
-                    if (done) {
-                        int input = JOptionPane.showOptionDialog(null, "Done!", "ServerMerger", JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-                        if (input == JOptionPane.OK_OPTION) {
-                            System.exit(0);
+                    finalWorld = new File(serverPathFile + "/" + worldName);
+                }
+
+                if (currentMerger != null) {
+                    System.out.println("Using " + getCurrentMerger().getClass().getSimpleName() + " merging tool");
+
+                    if (currentMerger.checkValid(dropFolder)) {
+                        boolean done = currentMerger.mergeWorld(dropFolder, finalWorld, worldName);
+                        if (done) {
+                            int input = JOptionPane.showOptionDialog(null, "Done!", "ServerMerger", JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+                            if (input == JOptionPane.OK_OPTION) {
+                                System.exit(0);
+                            }
                         }
                     }
+                } else {
+                    error("Can not recognize the worlds", false);
                 }
             } else {
-                error("Can not recognize the worlds", false);
+                error("Please copy the worlds in the " + dropFolder.getName() + " folder", false);
             }
         } else {
-            error("Please copy the worlds in the " + dropFolder.getName() + " folder", false);
+            error("Please enter a name for the world!", false);
         }
     }
 
