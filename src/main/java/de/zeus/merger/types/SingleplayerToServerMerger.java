@@ -1,24 +1,24 @@
 package de.zeus.merger.types;
 
 import de.zeus.merger.Merger;
-import de.zeus.merger.WorldMerger;
+import de.zeus.merger.Utils;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
-public class SingleplayerToServerMerger implements Merger {
+public class SingleplayerToServerMerger extends Utils implements Merger {
 
     @Override
     public boolean mergeWorld(File from, File destination, String worldName) {
         if (destination.exists()) {
-            WorldMerger.error("A error occurred! Folder " + worldName + " already exists", false);
+            error("A error occurred! Folder " + worldName + " already exists", false);
             return false;
         }
 
         if (!destination.mkdir()) {
-            WorldMerger.error("A error occurred! Can not creating folder " + worldName);
+            error("A error occurred! Can not creating folder " + worldName);
             return false;
         }
 
@@ -26,14 +26,14 @@ public class SingleplayerToServerMerger implements Merger {
         File worldFile = new File(from + "/" + Objects.requireNonNull(from.listFiles())[0].getName());
 
         if(!defaultWorld.mkdir()) {
-            WorldMerger.error("A error occurred! Can not create folder " + defaultWorld.getName());
+            error("A error occurred! Can not create folder " + defaultWorld.getName());
             return false;
         }
 
         try {
             FileUtils.copyDirectory(worldFile, defaultWorld);
         } catch (IOException e) {
-            WorldMerger.error("A error occurred! Can not copy default world to " + worldName);
+            error("A error occurred! Can not copy default world to " + worldName);
             e.printStackTrace();
             return false;
         }
@@ -51,7 +51,7 @@ public class SingleplayerToServerMerger implements Merger {
             if(iconFile.exists()) FileUtils.deleteQuietly(iconFile);
             if(lockFile.exists()) FileUtils.deleteQuietly(lockFile);
         } catch (IOException e) {
-            WorldMerger.error("A error occurred! Can not delete folders " + DIM1World.getName() + " & " + DIM2World.getName());
+            error("A error occurred! Can not delete folders " + DIM1World.getName() + " & " + DIM2World.getName());
             e.printStackTrace();
             return false;
         }
@@ -65,12 +65,12 @@ public class SingleplayerToServerMerger implements Merger {
         File endWorld = new File(destination + "/world_the_end/DIM1/");
 
         if(!netherWorld.mkdirs()) {
-            WorldMerger.error("A error occurred! Can not create folder " + netherWorld.getName());
+            error("A error occurred! Can not create folder " + netherWorld.getName());
             return false;
         }
 
         if(!endWorld.mkdirs()) {
-            WorldMerger.error("A error occurred! Can not create folder " + endWorld.getName());
+            error("A error occurred! Can not create folder " + endWorld.getName());
             return false;
         }
 
@@ -83,7 +83,7 @@ public class SingleplayerToServerMerger implements Merger {
             if(DIM1.exists()) FileUtils.copyDirectory(DIM1, netherWorld);
             if(DIM2.exists()) FileUtils.copyDirectory(DIM2, endWorld);
         } catch (IOException e) {
-            WorldMerger.error("A error occurred! Can not copy folders " + netherWorld.getName() + " & " + endWorld.getName());
+            error("A error occurred! Can not copy folders " + netherWorld.getName() + " & " + endWorld.getName());
             e.printStackTrace();
             return false;
         }
@@ -96,7 +96,7 @@ public class SingleplayerToServerMerger implements Merger {
         boolean valid = Objects.requireNonNull(from.listFiles()).length == 1;
 
         if(!valid)
-            WorldMerger.error("Please put a singleplayer world in the " + from.getName() + " folder!", false);
+            error("Please put a singleplayer world in the " + from.getName() + " folder!", false);
 
         return valid;
     }

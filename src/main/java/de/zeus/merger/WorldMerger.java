@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.io.File;
 import java.net.URISyntaxException;
 
-public class WorldMerger {
+public class WorldMerger extends Utils {
 
     private final File dropFolder;
     private Merger currentMerger;
@@ -52,7 +52,7 @@ public class WorldMerger {
             if(currentMerger instanceof ServerToSingleplayerMerger) {
                 File serverPathFile;
 
-                if(serverPath.isEmpty() || !(serverPathFile = new File(serverPath)).exists()) {
+                if(isNull(serverPath) || !(serverPathFile = new File(serverPath)).exists()) {
                     error("Please enter a correct .minecraft path!", false);
                     return;
                 }
@@ -77,18 +77,6 @@ public class WorldMerger {
             }
         } else {
             error("Please copy the worlds in the " + dropFolder.getName() + " folder", false);
-        }
-    }
-
-    public static void error(String message) {
-        error(message, true);
-    }
-
-    public static void error(String message, boolean close) {
-        int error = JOptionPane.showOptionDialog(null, message, "ServerMerger", JOptionPane.CLOSED_OPTION, JOptionPane.ERROR_MESSAGE, null, null, null);
-
-        if(error == JOptionPane.OK_OPTION && close) {
-            System.exit(0);
         }
     }
 
