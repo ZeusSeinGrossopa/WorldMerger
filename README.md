@@ -16,7 +16,7 @@ pause
 
 # Gui
 
-![WorldMerger](https://user-images.githubusercontent.com/80217114/159779185-94628612-5f16-4513-930c-2766c9c07caf.png)
+![WorldMerger](https://user-images.githubusercontent.com/80217114/159793450-e7a127aa-2418-4653-b0f3-4c525fe4cc8f.png)
 
 
 ---
