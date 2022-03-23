@@ -41,7 +41,7 @@ public class WorldMerger extends Utils {
     }
 
     public void start(String worldName, String serverPath) {
-        if(isNull(serverPath)) {
+        if(!isNull(serverPath)) {
             if (dropFolder.exists() && dropFolder.listFiles() != null && dropFolder.listFiles().length > 0) {
                 if (dropFolder.listFiles().length == 1) {
                     setCurrentMerger(new SingleplayerToServerMerger());
