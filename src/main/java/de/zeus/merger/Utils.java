@@ -1,5 +1,9 @@
 package de.zeus.merger;
 
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
+
 import javax.swing.*;
 
 public class Utils {
@@ -20,5 +24,25 @@ public class Utils {
 
     public static boolean isNull(String string) {
         return string == null || string.isEmpty();
+    }
+
+    private static volatile boolean launched = false;
+
+    public static void betterLaunch(Class<? extends Application> applicationClass) {
+        if (!launched) {
+            Platform.setImplicitExit(false);
+            new Thread(() -> Application.launch(applicationClass)).start();
+            launched = true;
+        } else {
+            Platform.runLater(() -> {
+                try {
+                    Application application = applicationClass.newInstance();
+                    Stage primaryStage = new Stage();
+                    application.start(primaryStage);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }
     }
 }

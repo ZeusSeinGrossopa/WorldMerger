@@ -2,7 +2,6 @@ package de.zeus.merger;
 
 import de.zeus.merger.types.ServerToSingleplayerMerger;
 import de.zeus.merger.types.SingleplayerToServerMerger;
-import javafx.application.Application;
 
 import javax.swing.*;
 import java.io.File;
@@ -37,7 +36,8 @@ public class WorldMerger extends Utils {
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> System.out.println("Shutting down...")));
 
-        Application.launch(GuiNew.class, args);
+        Utils.betterLaunch(GuiNew.class);
+//        Application.launch(GuiNew.class, args);
     }
 
     public void start(String worldName, String serverPath) {

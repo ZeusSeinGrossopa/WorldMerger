@@ -1,6 +1,9 @@
 package de.zeus.merger.controller;
 
 import com.gluonhq.charm.glisten.control.TextField;
+import com.sun.javafx.PlatformUtil;
+import de.zeus.merger.SearchGui;
+import de.zeus.merger.Utils;
 import de.zeus.merger.WorldMerger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,22 +27,44 @@ public class MainController implements Initializable {
     @FXML
     public Button openButton;
 
+    private static MainController instance;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        instance = this;
+
         this.textfieldPath.setText(WorldMerger.getSavePath().getAbsolutePath());
 
         this.startButton.setOnAction(e -> WorldMerger.getInstance().start(textfield.getText(), textfieldPath.getText()));
 
         this.openButton.setOnAction(e -> {
-            JFileChooser guiChooser = new JFileChooser();
-            guiChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            guiChooser.setAcceptAllFileFilterUsed(false);
+            if (PlatformUtil.isWindows()) {
+                Utils.betterLaunch(SearchGui.class);
+            } else {
+                try {
+                    UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+                } catch (ClassNotFoundException | UnsupportedLookAndFeelException | InstantiationException | IllegalAccessException ex) {
+                    ex.printStackTrace();
+                }
 
-            int returnValue = guiChooser.showOpenDialog(null);
+                JFileChooser guiChooser = new JFileChooser();
+                guiChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                guiChooser.setAcceptAllFileFilterUsed(false);
 
-            if(returnValue == JFileChooser.APPROVE_OPTION) {
-                this.textfieldPath.setText(guiChooser.getSelectedFile().getAbsolutePath());
+                int returnValue = guiChooser.showOpenDialog(null);
+
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    this.textfieldPath.setText(guiChooser.getSelectedFile().getAbsolutePath());
+                }
             }
         });
+    }
+
+    public static MainController getInstance() {
+        return instance;
+    }
+
+    public TextField getTextfieldPath() {
+        return textfieldPath;
     }
 }
