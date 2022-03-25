@@ -114,8 +114,6 @@
                     <archive>
                         <manifest>
                             <mainClass>de.zeus.merger.WorldMerger</mainClass>
-                            <Built-By>ZeusSeinGrossopa</Built-By>
-                            <url>https://github.com/ZeusSeinGrossopa/WorldMerger</url>
                         </manifest>
                     </archive>
                     <descriptorRefs>
