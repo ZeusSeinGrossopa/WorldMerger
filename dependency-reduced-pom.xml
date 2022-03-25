@@ -48,7 +48,6 @@
             <manifestEntries>
               <Main-Class>de.zeus.updater.Updater</Main-Class>
               <Built-By>ZeusSeinGrossopa</Built-By>
-              <Built-By2>ZeusSeinGrossopa</Built-By2>
               <url>https://github.com/ZeusSeinGrossopa/WorldMerger</url>
             </manifestEntries>
           </archive>
@@ -96,6 +95,8 @@
           <archive>
             <manifest>
               <mainClass>de.zeus.merger.WorldMerger</mainClass>
+              <Built-By>ZeusSeinGrossopa</Built-By>
+              <url>https://github.com/ZeusSeinGrossopa/WorldMerger</url>
             </manifest>
           </archive>
           <descriptorRefs>
