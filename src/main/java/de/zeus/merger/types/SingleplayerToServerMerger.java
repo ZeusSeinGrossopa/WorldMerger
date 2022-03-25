@@ -25,7 +25,7 @@ public class SingleplayerToServerMerger extends Utils implements Merger {
         File defaultWorld = new File(destination + "/world/");
         File worldFile = new File(from + "/" + Objects.requireNonNull(from.listFiles())[0].getName());
 
-        if(!defaultWorld.mkdir()) {
+        if (!defaultWorld.mkdir()) {
             error("A error occurred! Can not create folder " + defaultWorld.getName());
             return false;
         }
@@ -48,8 +48,8 @@ public class SingleplayerToServerMerger extends Utils implements Merger {
             if (DIM1World.exists()) FileUtils.deleteDirectory(DIM1World);
             if (DIM2World.exists()) FileUtils.deleteDirectory(DIM2World);
 
-            if(iconFile.exists()) FileUtils.deleteQuietly(iconFile);
-            if(lockFile.exists()) FileUtils.deleteQuietly(lockFile);
+            if (iconFile.exists()) FileUtils.deleteQuietly(iconFile);
+            if (lockFile.exists()) FileUtils.deleteQuietly(lockFile);
         } catch (IOException e) {
             error("A error occurred! Can not delete folders " + DIM1World.getName() + " & " + DIM2World.getName());
             e.printStackTrace();
@@ -64,12 +64,12 @@ public class SingleplayerToServerMerger extends Utils implements Merger {
         File netherWorld = new File(destination + "/world_nether/DIM-1/");
         File endWorld = new File(destination + "/world_the_end/DIM1/");
 
-        if(!netherWorld.mkdirs()) {
+        if (!netherWorld.mkdirs()) {
             error("A error occurred! Can not create folder " + netherWorld.getName());
             return false;
         }
 
-        if(!endWorld.mkdirs()) {
+        if (!endWorld.mkdirs()) {
             error("A error occurred! Can not create folder " + endWorld.getName());
             return false;
         }
@@ -80,8 +80,8 @@ public class SingleplayerToServerMerger extends Utils implements Merger {
 //        }
 
         try {
-            if(DIM1.exists()) FileUtils.copyDirectory(DIM1, netherWorld);
-            if(DIM2.exists()) FileUtils.copyDirectory(DIM2, endWorld);
+            if (DIM1.exists()) FileUtils.copyDirectory(DIM1, netherWorld);
+            if (DIM2.exists()) FileUtils.copyDirectory(DIM2, endWorld);
         } catch (IOException e) {
             error("A error occurred! Can not copy folders " + netherWorld.getName() + " & " + endWorld.getName());
             e.printStackTrace();
@@ -95,7 +95,7 @@ public class SingleplayerToServerMerger extends Utils implements Merger {
     public boolean checkValid(File from) {
         boolean valid = Objects.requireNonNull(from.listFiles()).length == 1;
 
-        if(!valid)
+        if (!valid)
             error("Please put a singleplayer world in the " + from.getName() + " folder!", false);
 
         return valid;

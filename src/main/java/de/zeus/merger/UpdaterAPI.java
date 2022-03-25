@@ -33,10 +33,10 @@ public class UpdaterAPI {
         updaterFile = finalDestination;
 
         if (autoDelete) {
-            if(destination.exists())
+            if (destination.exists())
                 destination.delete();
 
-            if(consumer != null)
+            if (consumer != null)
                 consumer.accept(destination);
             return;
         }
@@ -47,7 +47,7 @@ public class UpdaterAPI {
 
                 FileUtils.copyURLToFile(url, finalDestination);
 
-                if(consumer != null)
+                if (consumer != null)
                     consumer.accept(finalDestination);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -73,7 +73,7 @@ public class UpdaterAPI {
                         .getAsJsonArray()
                         .get(0).getAsJsonObject().get("browser_download_url").getAsString();
 
-                consumer.accept(new String[] {object.get("tag_name").getAsString(), downloadLink});
+                consumer.accept(new String[]{object.get("tag_name").getAsString(), downloadLink});
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,14 +81,14 @@ public class UpdaterAPI {
     }
 
     public static void update(String url, File newFile) throws IOException {
-        if(updaterFile == null)
+        if (updaterFile == null)
             throw new NullPointerException("The downloadUpdater must be called before using this method. Alternate use the #update(updaterFile, url, newFile) method.");
 
         update(updaterFile, url, newFile);
     }
 
     public static void update(String url, File newFile, boolean restart) throws IOException {
-        if(updaterFile == null)
+        if (updaterFile == null)
             throw new NullPointerException("The downloadUpdater must be called before using this method. Alternate use the #update(updaterFile, url, newFile) method.");
 
         update(updaterFile, url, newFile, restart);
@@ -127,16 +127,16 @@ public class UpdaterAPI {
         return compareVersions(version1, version2) == -1;
     }
 
-    public static int compareVersions(String version1, String version2){
+    public static int compareVersions(String version1, String version2) {
         String[] levels1 = version1.split("\\.");
         String[] levels2 = version2.split("\\.");
 
         int length = Math.max(levels1.length, levels2.length);
-        for (int i = 0; i < length; i++){
+        for (int i = 0; i < length; i++) {
             Integer v1 = i < levels1.length ? Integer.parseInt(levels1[i]) : 0;
             Integer v2 = i < levels2.length ? Integer.parseInt(levels2[i]) : 0;
             int compare = v1.compareTo(v2);
-            if (compare != 0){
+            if (compare != 0) {
                 return compare;
             }
         }
@@ -144,7 +144,7 @@ public class UpdaterAPI {
     }
 
     public static File getJarPath() {
-        if(jarPath == null) {
+        if (jarPath == null) {
             try {
                 return new File(UpdaterAPI.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getAbsoluteFile();
             } catch (URISyntaxException e) {

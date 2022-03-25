@@ -8,6 +8,8 @@ import javax.swing.*;
 
 public class Utils {
 
+    private static volatile boolean launched = false;
+
     public static void error(String message) {
         error(message, true);
     }
@@ -25,8 +27,6 @@ public class Utils {
     public static boolean isNull(String string) {
         return string == null || string.isEmpty();
     }
-
-    private static volatile boolean launched = false;
 
     public static void betterLaunch(Class<? extends Application> applicationClass) {
         if (!launched) {

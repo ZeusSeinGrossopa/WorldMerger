@@ -2,12 +2,12 @@
 
 ---
 
-WorldMerger is a useful tool to merge minecraft worlds. It contains the following features: 
+WorldMerger is a useful tool to merge minecraft worlds. It contains the following features:
 
 - Merge multiplayer worlds to a singleplayer world
 - Merge a singeplayer worlds to multiplayer worlds
 
-# How to Run 
+# How to Run
 
 ```
 java -jar WorldMerger.jar

@@ -17,7 +17,7 @@ public class SearchGui extends Application {
 
         chooser.setTitle("Select the folder");
 
-        if(file == null) {
+        if (file == null) {
             Utils.error("Please select an correct folder!", false);
             return;
         }

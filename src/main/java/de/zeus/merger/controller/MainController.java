@@ -15,19 +15,19 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
+    private static MainController instance;
     @FXML
     public Button startButton;
-
     @FXML
     public TextField textfield;
-
     @FXML
     public TextField textfieldPath;
-
     @FXML
     public Button openButton;
 
-    private static MainController instance;
+    public static MainController getInstance() {
+        return instance;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -58,10 +58,6 @@ public class MainController implements Initializable {
                 }
             }
         });
-    }
-
-    public static MainController getInstance() {
-        return instance;
     }
 
     public TextField getTextfieldPath() {

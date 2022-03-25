@@ -96,7 +96,7 @@ public class ServerToSingleplayerMerger extends Utils implements Merger {
     public boolean checkValid(File dropFolder) {
         boolean valid = Arrays.asList(worldNames).equals(Arrays.stream(Objects.requireNonNull(dropFolder.listFiles())).map(File::getName).collect(Collectors.toList()));
 
-        if(!valid)
+        if (!valid)
             error("Please use " + Arrays.toString(worldNames), false);
 
         return valid;

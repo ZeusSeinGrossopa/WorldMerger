@@ -1,6 +1,7 @@
 package de.zeus.merger;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class Updater {
@@ -26,7 +27,7 @@ public class Updater {
     }
 
     private static File getJarPath() {
-        if(jarPath == null) {
+        if (jarPath == null) {
             try {
                 jarPath = new File(Updater.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
             } catch (URISyntaxException e) {
