@@ -38,17 +38,18 @@
         <configuration>
           <archive>
             <manifest>
-              <addDefaultImplementationEntries>false</addDefaultImplementationEntries>
-              <addDefaultSpecificationEntries>false</addDefaultSpecificationEntries>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
             </manifest>
             <index>true</index>
             <manifest>
               <addClasspath>true</addClasspath>
             </manifest>
             <manifestEntries>
-              <mode>development</mode>
-              <url>${project.url}</url>
-              <key>value</key>
+              <Main-Class>de.zeus.updater.Updater</Main-Class>
+              <Built-By>ZeusSeinGrossopa</Built-By>
+              <Built-By2>ZeusSeinGrossopa</Built-By2>
+              <url>https://github.com/ZeusSeinGrossopa/WorldMerger</url>
             </manifestEntries>
           </archive>
         </configuration>

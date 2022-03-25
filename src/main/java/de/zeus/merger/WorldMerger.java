@@ -34,6 +34,8 @@ public class WorldMerger extends Utils {
         dropFolder = new File(getJarPath() + "/yourworldshere/");
         dropFolder.mkdir();
 
+        Updater.start();
+
         Runtime.getRuntime().addShutdownHook(new Thread(() -> System.out.println("Shutting down...")));
 
         Utils.betterLaunch(GuiNew.class);

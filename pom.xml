@@ -63,8 +63,8 @@
                         </manifest>
                         <manifestEntries>
                             <Main-Class>de.zeus.updater.Updater</Main-Class>
-                            <url>https://github.com/ZeusSeinGrossopa/WorldMerger</url>
                             <Built-By>ZeusSeinGrossopa</Built-By>
+                            <url>https://github.com/ZeusSeinGrossopa/WorldMerger</url>
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -165,6 +165,12 @@
             <groupId>com.gluonhq</groupId>
             <artifactId>charm-glisten</artifactId>
             <version>6.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.9.0</version>
         </dependency>
     </dependencies>
 </project>
