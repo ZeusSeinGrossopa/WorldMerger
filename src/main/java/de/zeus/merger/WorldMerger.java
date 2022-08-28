@@ -10,7 +10,7 @@ import java.net.URISyntaxException;
 public class WorldMerger extends Utils {
 
     private static WorldMerger instance;
-    private static File jarFile;
+    private File jarFile;
     private final File dropFolder;
     private Merger currentMerger;
 
@@ -30,7 +30,7 @@ public class WorldMerger extends Utils {
 
     public static void main(String[] args) {
         System.out.println(
-                " █████╗  █████╗ ███████╗ █████╗ ███╗  ██╗ ██████╗██████╗ ██╗██████╗ ███████╗\n" +
+                        " █████╗  █████╗ ███████╗ █████╗ ███╗  ██╗ ██████╗██████╗ ██╗██████╗ ███████╗\n" +
                         "██╔══██╗██╔══██╗██╔════╝██╔══██╗████╗ ██║██╔════╝██╔══██╗██║██╔══██╗██╔════╝\n" +
                         "██║  ██║██║  ╚═╝█████╗  ███████║██╔██╗██║╚█████╗ ██████╔╝██║██████╔╝█████╗\n" +
                         "██║  ██║██║  ██╗██╔══╝  ██╔══██║██║╚████║ ╚═══██╗██╔═══╝ ██║██╔══██╗██╔══╝\n" +
@@ -41,7 +41,7 @@ public class WorldMerger extends Utils {
         new WorldMerger(args);
     }
 
-    public static File getJarPath() {
+    public File getJarPath() {
         if (jarFile == null) {
             try {
                 return (jarFile = new File(WorldMerger.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile());
@@ -56,11 +56,11 @@ public class WorldMerger extends Utils {
         return instance;
     }
 
-    public static File getSavePath() {
+    public File getSavePath() {
         return new File(getMinecraftPath() + "/saves/");
     }
 
-    public static File getMinecraftPath() {
+    public File getMinecraftPath() {
         String os = System.getProperty("os.name").toLowerCase();
         File finalFile = null;
 

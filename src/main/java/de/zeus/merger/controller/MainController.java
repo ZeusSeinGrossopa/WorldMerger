@@ -33,7 +33,7 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         instance = this;
 
-        this.textfieldPath.setText(WorldMerger.getSavePath().getAbsolutePath());
+        this.textfieldPath.setText(WorldMerger.getInstance().getSavePath().getAbsolutePath());
 
         this.startButton.setOnAction(e -> WorldMerger.getInstance().start(textfield.getText(), textfieldPath.getText()));
 
