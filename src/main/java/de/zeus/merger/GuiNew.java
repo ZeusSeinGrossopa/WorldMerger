@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.util.Objects;
 
@@ -30,5 +31,7 @@ public class GuiNew extends Application {
         stage.setResizable(false);
         stage.setTitle("WorldMerger");
         stage.show();
+
+        scene.getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, event -> System.exit(0));
     }
 }
