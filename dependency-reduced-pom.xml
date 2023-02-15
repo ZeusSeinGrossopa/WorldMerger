@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.zeus.merger</groupId>
   <artifactId>WorldMerger</artifactId>
-  <version>2.0</version>
+  <version>3.0</version>
   <build>
     <resources>
       <resource>
@@ -107,7 +107,7 @@
   <repositories>
     <repository>
       <id>jcenter</id>
-      <url>http://nexus.gluonhq.com/nexus/content/repositories/releases/</url>
+      <url>https://nexus.gluonhq.com/nexus/content/repositories/releases/</url>
     </repository>
   </repositories>
   <properties>

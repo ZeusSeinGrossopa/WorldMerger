@@ -6,8 +6,6 @@ import java.net.URISyntaxException;
 
 public class Updater {
 
-    private static String URL = "";
-
     private static File jarPath;
 
     public static void start() {

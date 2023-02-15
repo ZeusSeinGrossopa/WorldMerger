@@ -17,11 +17,10 @@ public class Utils {
     public static void error(String message, boolean close) {
         System.err.println(message);
 
-        int error = JOptionPane.showOptionDialog(null, message, "ServerMerger", JOptionPane.CLOSED_OPTION, JOptionPane.ERROR_MESSAGE, null, null, null);
+        int error = JOptionPane.showOptionDialog(null, message, "ServerMerger", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null, null, null);
 
-        if (error == JOptionPane.OK_OPTION && close) {
+        if (error == JOptionPane.OK_OPTION && close)
             System.exit(0);
-        }
     }
 
     public static boolean isNull(String string) {
@@ -36,7 +35,7 @@ public class Utils {
         } else {
             Platform.runLater(() -> {
                 try {
-                    Application application = applicationClass.newInstance();
+                    Application application = applicationClass.getDeclaredConstructor().newInstance();
                     Stage primaryStage = new Stage();
                     application.start(primaryStage);
                 } catch (Exception e) {

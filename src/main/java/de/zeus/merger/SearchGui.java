@@ -21,6 +21,6 @@ public class SearchGui extends Application {
             Utils.error("Please select an correct folder!", false);
             return;
         }
-        MainController.getInstance().getTextfieldPath().setText(file.getAbsolutePath());
+        MainController.getInstance().getTextFieldPath().setText(file.getAbsolutePath());
     }
 }

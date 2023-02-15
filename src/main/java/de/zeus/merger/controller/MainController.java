@@ -21,7 +21,7 @@ public class MainController implements Initializable {
     @FXML
     public TextField textfield;
     @FXML
-    public TextField textfieldPath;
+    public TextField textFieldPath;
     @FXML
     public Button openButton;
 
@@ -33,9 +33,9 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         instance = this;
 
-        this.textfieldPath.setText(WorldMerger.getInstance().getSavePath().getAbsolutePath());
+        this.textFieldPath.setText(WorldMerger.getInstance().getSavePath().getAbsolutePath());
 
-        this.startButton.setOnAction(e -> WorldMerger.getInstance().start(textfield.getText(), textfieldPath.getText()));
+        this.startButton.setOnAction(e -> WorldMerger.getInstance().start(textfield.getText(), textFieldPath.getText()));
 
         this.openButton.setOnAction(e -> {
             if (PlatformUtil.isWindows()) {
@@ -54,13 +54,13 @@ public class MainController implements Initializable {
                 int returnValue = guiChooser.showOpenDialog(null);
 
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
-                    this.textfieldPath.setText(guiChooser.getSelectedFile().getAbsolutePath());
+                    this.textFieldPath.setText(guiChooser.getSelectedFile().getAbsolutePath());
                 }
             }
         });
     }
 
-    public TextField getTextfieldPath() {
-        return textfieldPath;
+    public TextField getTextFieldPath() {
+        return textFieldPath;
     }
 }

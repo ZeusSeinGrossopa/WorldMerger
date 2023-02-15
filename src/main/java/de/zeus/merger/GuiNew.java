@@ -4,8 +4,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.util.Objects;
 
 public class GuiNew extends Application {
 
@@ -20,7 +21,7 @@ public class GuiNew extends Application {
         instance = this;
         System.setProperty("prism.lcdtext", "false");
 
-        Parent root = FXMLLoader.load(getClass().getResource("/gui/main.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/gui/main.fxml")));
 
         Scene scene = new Scene(root);
         scene.setRoot(root);
@@ -28,7 +29,6 @@ public class GuiNew extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setTitle("WorldMerger");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/gui/logo.png")));
         stage.show();
     }
 }

@@ -37,14 +37,6 @@
                         </goals>
                     </execution>
                 </executions>
-
-                <!--                <configuration>-->
-                <!--                    <transformers>-->
-                <!--                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">-->
-                <!--                            <mainClass>de.zeus.merger.WorldMerger</mainClass>-->
-                <!--                        </transformer>-->
-                <!--                    </transformers>-->
-                <!--                </configuration>-->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -132,7 +124,7 @@
     <repositories>
         <repository>
             <id>jcenter</id>
-            <url>http://nexus.gluonhq.com/nexus/content/repositories/releases/</url>
+            <url>https://nexus.gluonhq.com/nexus/content/repositories/releases/</url>
         </repository>
     </repositories>
 
@@ -164,7 +156,7 @@
         <dependency>
             <groupId>com.gluonhq</groupId>
             <artifactId>charm-glisten</artifactId>
-            <version>6.0.2</version>
+            <version>6.1.0</version>
         </dependency>
 
         <dependency>
