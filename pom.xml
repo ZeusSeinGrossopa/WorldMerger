@@ -54,7 +54,7 @@
                             <addClasspath>true</addClasspath>
                         </manifest>
                         <manifestEntries>
-                            <Main-Class>de.zeus.updater.Updater</Main-Class>
+                            <Main-Class>de.zeus.merger.WorldMerger</Main-Class>
                             <Built-By>ZeusSeinGrossopa</Built-By>
                             <url>https://github.com/ZeusSeinGrossopa/WorldMerger</url>
                         </manifestEntries>
