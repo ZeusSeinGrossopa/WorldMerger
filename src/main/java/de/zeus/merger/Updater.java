@@ -7,17 +7,28 @@ import java.net.URISyntaxException;
 public class Updater {
 
     private static File jarPath;
+    private static final String currentVersion = "3.0";
 
     public static void start() {
         UpdaterAPI.setAutoDelete(true);
         UpdaterAPI.downloadUpdater(new File(getJarPath() + "/Updater.jar"));
 
-        final String[][] versionArguments = {null};
-        UpdaterAPI.getLatestReleaseFromGithub("ZeusSeinGrossopa", "WorldMerger", strings -> versionArguments[0] = strings);
+        final String[][] data = {new String[2]};
+        UpdaterAPI.getLatestReleaseFromGithub("ZeusSeinGrossopa", "WorldMerger", strings -> data[0] = strings);
+
+        if (data[0][0] == null || data[0][1] == null) {
+            System.out.println("Could not get latest release from github!");
+            return;
+        }
+
+        if(!UpdaterAPI.needUpdate(currentVersion, data[0][0].replace("V", ""))) {
+            return;
+        }
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println("Shutting down and updating...");
             try {
-                UpdaterAPI.update(versionArguments[0][0], new File(getJarPath().getParentFile().getAbsolutePath() + "/" + getJarPath().getName()), false);
+                UpdaterAPI.update(data[0][1], new File(getJarPath().getParentFile().getAbsolutePath() + "/" + getJarPath().getName()), false);
             } catch (IOException e) {
                 e.printStackTrace();
             }
