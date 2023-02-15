@@ -43,7 +43,8 @@ public class MainController implements Initializable {
             } else {
                 try {
                     UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-                } catch (ClassNotFoundException | UnsupportedLookAndFeelException | InstantiationException | IllegalAccessException ex) {
+                } catch (ClassNotFoundException | UnsupportedLookAndFeelException | InstantiationException |
+                         IllegalAccessException ex) {
                     ex.printStackTrace();
                 }
 

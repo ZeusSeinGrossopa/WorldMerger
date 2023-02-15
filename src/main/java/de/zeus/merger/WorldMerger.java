@@ -11,8 +11,8 @@ import java.util.Objects;
 public class WorldMerger extends Utils {
 
     private static WorldMerger instance;
-    private File jarFile;
     private final File dropFolder;
+    private File jarFile;
     private Merger currentMerger;
 
     public WorldMerger(String[] args) {
@@ -30,7 +30,7 @@ public class WorldMerger extends Utils {
 
     public static void main(String[] args) {
         System.out.println(
-                        " █████╗  █████╗ ███████╗ █████╗ ███╗  ██╗ ██████╗██████╗ ██╗██████╗ ███████╗\n" +
+                " █████╗  █████╗ ███████╗ █████╗ ███╗  ██╗ ██████╗██████╗ ██╗██████╗ ███████╗\n" +
                         "██╔══██╗██╔══██╗██╔════╝██╔══██╗████╗ ██║██╔════╝██╔══██╗██║██╔══██╗██╔════╝\n" +
                         "██║  ██║██║  ╚═╝█████╗  ███████║██╔██╗██║╚█████╗ ██████╔╝██║██████╔╝█████╗\n" +
                         "██║  ██║██║  ██╗██╔══╝  ██╔══██║██║╚████║ ╚═══██╗██╔═══╝ ██║██╔══██╗██╔══╝\n" +
@@ -39,6 +39,10 @@ public class WorldMerger extends Utils {
         );
 
         new WorldMerger(args);
+    }
+
+    public static WorldMerger getInstance() {
+        return instance;
     }
 
     public File getJarPath() {
@@ -50,10 +54,6 @@ public class WorldMerger extends Utils {
             }
         }
         return jarFile;
-    }
-
-    public static WorldMerger getInstance() {
-        return instance;
     }
 
     public File getSavePath() {
